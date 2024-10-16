@@ -9,15 +9,6 @@ set "TEMP_JS=javascript/temp.js"
 set "EXTRACT_DIR=extracted_classes"
 set "BACKUP_JS=javascript/classes_backup.js"
 
-:: Check if the output file exists and create a backup if it does
-if exist "%OUTPUT_JS%" (
-    echo Creating backup of %OUTPUT_JS% as %BACKUP_JS%...
-    copy "%OUTPUT_JS%" "%BACKUP_JS%"
-) else (
-    :: Create an empty output file if it doesn't exist
-    echo // Merged JavaScript from TeaVM > "%OUTPUT_JS%"
-)
-
 :: Check if the JAR file exists before renaming
 if exist "%JAR_PATH%" (
     echo Renaming %JAR_PATH% to %ZIP_PATH%...
@@ -32,6 +23,15 @@ if exist "%JAR_PATH%" (
 ) else (
     echo Error: %JAR_PATH% does not exist.
     exit /b 1
+)
+
+:: Check if the output file exists and create a backup if it does
+if exist "%OUTPUT_JS%" (
+    echo Creating backup of %OUTPUT_JS% as %BACKUP_JS%...
+    copy "%OUTPUT_JS%" "%BACKUP_JS%"
+) else (
+    :: Create an empty output file if it doesn't exist
+    echo // Merged JavaScript from TeaVM > "%OUTPUT_JS%"
 )
 
 :: Find and process each .class file
